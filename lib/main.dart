@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
 
+import './question.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return MyAppState();
+    // Creates a stateful widget which loads from the stateless widget below
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+class _MyAppState extends State<MyApp> {
+  //The stateless widget
+  var _questionIndex = 0;
+  /* Note the underscore, defines a private property. Private properties are
+  limited within the scope of the library or module in which it is used */
   var questions = [
+    //The properties of the class, usually data
     'What\'s your favorite color?',
     'What\'s your favorite animal?',
   ];
-  void answerQuestion() {
+  void _answerQuestion() {
+    //Methods of the class, normally functions
     setState(() {
-      questionIndex = questionIndex + 1;
-      print(questionIndex);
+      /* Set state helps to change the state of the widget using a logical
+      reference and input data which is made possible by extending stateful
+      widget */
+      _questionIndex = _questionIndex + 1;
+      print(_questionIndex);
     });
   }
 
@@ -32,20 +42,18 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(questions[questionIndex]),
+            Question(questions[_questionIndex]),
             RaisedButton(
               child: Text("Answer 1"),
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
             ),
             RaisedButton(
               child: Text("Answer 2"),
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
             ),
             RaisedButton(
               child: Text("Answer 3"),
-              onPressed: () {
-                print("Chosen");
-              },
+              onPressed: _answerQuestion,
             ),
           ],
         ),
