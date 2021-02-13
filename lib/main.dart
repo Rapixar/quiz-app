@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_academind/results.dart';
 //import './answer.dart';
 
 //import './question.dart';
@@ -21,15 +20,30 @@ class _MyAppState extends State<MyApp> {
   final _questions = const [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Black', 'Yellow', 'Blue', 'Green']
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Yellow', 'score': 7},
+        {'text': 'Blue', 'score': 5},
+        {'text': 'Green', 'score': 2},
+      ]
     },
     {
       'questionText': 'What\'s your favorite animal?',
-      'answers': ['Cat', 'Dog', 'Rabbit', 'Snake']
+      'answers': [
+        {'text': 'Cat', 'score': 1},
+        {'text': 'Dog', 'score': 9},
+        {'text': 'Rabbit', 'score': 5},
+        {'text': 'Snake', 'score': 8}
+      ]
     },
     {
       'questionText': 'Who\'s your favorite person?',
-      'answers': ['Raphael', 'Vivian', 'Naruto', 'Donny']
+      'answers': [
+        {'text': 'Raphael', 'score': 1},
+        {'text': 'Vivian', 'score': 3},
+        {'text': 'Naruto', 'score': 6},
+        {'text': 'Donny', 'score': 9},
+      ]
     },
 
     //The properties of the class, usually data
@@ -37,12 +51,22 @@ class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
   /* Note the underscore, defines a private property. Private properties are
   limited within the scope of the library or module in which it is used */
+  var _finalScore = 0;
 
-  void _answerQuestion() {
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _finalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
     setState(() {
       /* Set state helps to change the state of the widget using a logical
       reference and input data which is made possible by extending stateful
       widget */
+
+      _finalScore += score;
       _questionIndex = _questionIndex + 1;
       print(_questionIndex);
     });
@@ -56,17 +80,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.green,
-            title: Text("This is an app"),
-          ),
-          body: _questionIndex < _questions.length
-              ? Quiz(
-                  questions: _questions,
-                  questionIndex: _questionIndex,
-                  answerQuestion: _answerQuestion)
-              : Result()),
-    );
+        home: Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Text("This is an app"),
+      ),
+      body: _questionIndex < _questions.length
+          ? Quiz(
+              questions: _questions,
+              questionIndex: _questionIndex,
+              answerQuestion: _answerQuestion)
+          : Result(_finalScore, _resetQuiz),
+    ));
   }
 }
