@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_academind/answer.dart';
+import './answer.dart';
 
 import './question.dart';
 
@@ -18,11 +18,7 @@ class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
   /* Note the underscore, defines a private property. Private properties are
   limited within the scope of the library or module in which it is used */
-  var questions = [
-    //The properties of the class, usually data
-    'What\'s your favorite color?',
-    'What\'s your favorite animal?',
-  ];
+
   void _answerQuestion() {
     //Methods of the class, normally functions
     setState(() {
@@ -36,17 +32,37 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    var questions = [
+      {
+        'questionText': 'What\'s your favorite color?',
+        'answers': ['Black', 'Yellow', 'Blue', 'Green']
+      },
+      {
+        'questionText': 'What\'s your favorite animal?',
+        'answers': ['Cat', 'Dog', 'Rabbit', 'Snake']
+      },
+      {
+        'questionText': 'Who\'s your favorite person?',
+        'answers': ['Raphael', 'Vivian', 'Naruto', 'Donny']
+      },
+
+      //The properties of the class, usually data
+    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.green,
           title: Text("This is an app"),
         ),
         body: Column(
           children: [
-            Question(questions[_questionIndex]),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
+            Question(
+              questions[_questionIndex]['questionText'],
+            ),
+            ...(questions[_questionIndex]['answers'] as List<String>)
+                .map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList()
           ],
         ),
       ),
