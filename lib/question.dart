@@ -10,6 +10,7 @@ class Question extends StatelessWidget {
     return Container(
         width: double
             .infinity, //This gives the container the full length of the screen, if not, it wraps around the length of the child widget
+        margin: EdgeInsets.all(10),
         child: Text(
           questionText,
           style: TextStyle(fontSize: 28),
