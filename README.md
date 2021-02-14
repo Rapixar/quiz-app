@@ -1,6 +1,6 @@
-# flutter_academind
+# A random Quiz App
 
-A new Flutter application.
+A quiz application, created with Flutter. App #1 yaaay!
 
 ## Getting Started
 
